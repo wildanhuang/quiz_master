@@ -1,5 +1,5 @@
 class QuestionsController < ApplicationController
-  before_action :set_question, only: [:show, :edit, :update, :destroy]
+  before_action :set_question, only: [:show, :edit, :update, :destroy, :try_to_answer, :get_answer]
 
   def index
     @questions = Question.all.order('id asc')
@@ -31,6 +31,29 @@ class QuestionsController < ApplicationController
     else
       flash[:error] = @question.errors.full_messages.join(', ')
       render :edit
+    end
+  end
+
+  def show
+  end
+
+  def destroy
+    if @question.destroy
+      flash[:notice] = "Question deleted"
+    else
+      flash[:error] = @question.errors.full_messages.join(', ')
+    end
+    redirect_to questions_path
+  end
+
+  def try_to_answer
+  end
+
+  def get_answer
+    @result = @question.check_answer(params[:user_answer])
+
+    respond_to do |format|
+      format.js { render :get_answer}
     end
   end
 

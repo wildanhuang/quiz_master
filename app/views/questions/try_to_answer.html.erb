@@ -1,0 +1,54 @@
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header">Answer Question <%=  @question.title %></h1>
+  </div>
+</div>
+
+<div class="row">  
+  <div class="col-lg-1">
+    Question:
+  </div>
+  <div class="col-lg-5">
+    <%= @question.content.html_safe %>
+  </div>
+</div>
+
+<div class="row">  
+  <div class="col-lg-1">
+    Answer:
+  </div>
+  <div class="col-lg-5">
+    <%= text_field_tag 'answer', '', placeholder: 'your answer', class: 'form-control' %>
+    <%= hidden_field_tag 'question_id', @question.id %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-5">
+    <div id="user_answer"></div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  var timer;
+
+  $("input#answer").on('keyup', function() {
+    clearTimeout(timer);  //clear any running timeout on key up
+    timer = setTimeout(function() { //then give it a second to see if the user is finished
+      $.ajax({
+        url: '/questions/get_answer',
+        type:'get',
+        data: {
+          id: $("#question_id").val(),
+          user_answer: $("#answer").val()
+        },
+        success: function( data ) {
+
+        },
+        error: function( data ){
+
+        }
+      }); 
+    }, 500);
+  });
+</script>

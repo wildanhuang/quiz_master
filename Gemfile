@@ -29,6 +29,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'ckeditor', '~> 4.1', '>= 4.1.6'
 gem 'paperclip', '~> 4.3', '>= 4.3.6'
 
+gem 'numbers_and_words'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
