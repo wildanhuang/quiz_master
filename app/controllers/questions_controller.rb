@@ -50,7 +50,8 @@ class QuestionsController < ApplicationController
   end
 
   def get_answer
-    @result = @question.check_answer(params[:user_answer])
+    # @result = @question.check_answer(params[:user_answer])
+    @result = AnswerAlgorithm.new.run(@question.answer, params[:user_answer])
 
     respond_to do |format|
       format.js { render :get_answer}
