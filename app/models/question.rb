@@ -18,11 +18,11 @@ class Question < ActiveRecord::Base
 
       user_answer = answer.to_f
       if user_answer == 0
-        user_answer = answer
+        user_answer = answer.split(" ").join("-")
       else
         user_answer = answer.to_f.to_words
       end
-
+      
       if origin == user_answer
         return correct
       else
